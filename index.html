@@ -64,26 +64,28 @@
             border-bottom: 3px solid var(--gold-accent);
         }
         
-        /* New Veg/Non-Veg Symbol Styles */
-        .food-symbol {
+        /* THE BULLET STYLE LABELS */
+        .food-label {
             width: 16px;
             height: 16px;
-            border: 2px solid;
-            padding: 2px;
-            display: inline-block;
-            margin-right: 8px;
-            flex-shrink: 0; /* Prevents shrinking */
+            border: 1.5px solid;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            flex-shrink: 0;
+            background: white;
+            vertical-align: middle;
         }
-        .food-symbol div {
-            width: 100%;
-            height: 100%;
+        .food-label div {
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
         }
-        .symbol-veg { border-color: var(--veg-green); }
-        .symbol-veg div { background-color: var(--veg-green); }
-        .symbol-nonveg { border-color: var(--nonveg-red); }
-        .symbol-nonveg div { background-color: var(--nonveg-red); }
-
+        .label-veg { border-color: var(--veg-green); }
+        .label-veg div { background-color: var(--veg-green); }
+        .label-nonveg { border-color: var(--nonveg-red); }
+        .label-nonveg div { background-color: var(--nonveg-red); }
 
         .sub-category-header {
             font-family: 'Playfair Display', serif;
@@ -125,7 +127,6 @@
     </div>
 
     <script>
-        // PASTE YOUR GOOGLE SHEET CSV LINK HERE
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS3_itP09OmeOPyazHQP6mC228ZuaTJu5poQoJvfxqQDQNR4kg33fr08eDSgYJ-hOKzirPCNMyXCzOm/pub?output=csv';
 
         let menuData = [];
@@ -146,14 +147,12 @@
                         pieces: cols[4]?.replace(/"/g, '').trim(),
                         price: cols[5]?.replace(/"/g, '').trim(),
                         image: cols[6]?.replace(/"/g, '').trim(),
-                        type: cols[7]?.replace(/"/g, '').trim() // Reads Column H for 'veg' or 'non-veg'
+                        type: cols[7]?.replace(/"/g, '').trim()
                     };
                 }).filter(item => item.name);
 
                 renderLanding();
-            } catch (e) {
-                console.error("Error loading menu:", e);
-            }
+            } catch (e) { console.error("Error:", e); }
         }
 
         function renderLanding() {
@@ -193,12 +192,10 @@
                 itemsList.className = 'space-y-6';
 
                 itemsList.innerHTML = items.map(item => {
-                    // Logic to determine which symbol to show
-                    let symbolHtml = '';
+                    let labelHtml = '';
                     if (item.type) {
                         const isVeg = item.type.toLowerCase() === 'veg';
-                        const symbolClass = isVeg ? 'symbol-veg' : 'symbol-nonveg';
-                        symbolHtml = `<div class="food-symbol ${symbolClass}"><div></div></div>`;
+                        labelHtml = `<div class="food-label ${isVeg ? 'label-veg' : 'label-nonveg'}"><div></div></div>`;
                     }
 
                     return `
@@ -206,8 +203,9 @@
                             ${item.image ? `<img src="${item.image}" alt="${item.name}">` : ''}
                             <div class="p-5">
                                 <div class="flex justify-between items-start mb-2">
-                                    <div class="flex items-center font-serif">
-                                        ${symbolHtml} <h4 class="text-xl font-bold text-[#a03025] leading-tight">${item.name}</h4>
+                                    <div class="flex items-center">
+                                        ${labelHtml}
+                                        <h4 class="text-xl font-bold text-[#a03025] font-serif leading-tight">${item.name}</h4>
                                     </div>
                                     <span class="font-bold text-lg text-gray-800 ml-2">₹${item.price}</span>
                                 </div>
@@ -217,7 +215,6 @@
                         </div>
                     `;
                 }).join('');
-                
                 container.appendChild(itemsList);
             }
             window.scrollTo(0,0);
