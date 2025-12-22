@@ -25,69 +25,129 @@
             min-height: 100vh;
         }
 
-        /* --- HOMEPAGE SPECIFIC STYLING --- */
+        /* --- UPDATED ATTRACTIVE HOMEPAGE STYLING --- */
         .hero-banner {
-            background: linear-gradient(rgba(0,0,0,0.05), rgba(0,0,0,0.05)), url('https://www.transparenttextures.com/patterns/pinstripe.png');
-            border-bottom: 3px double var(--gold-accent);
-            padding: 40px 20px;
+            padding: 60px 20px 40px;
             text-align: center;
+            background: radial-gradient(circle at center, rgba(197, 160, 96, 0.1) 0%, transparent 70%);
+            position: relative;
         }
+        
+        /* Decorative corner flourishes */
+        .hero-banner::before {
+            content: "❧";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: var(--gold-accent);
+            font-size: 2rem;
+            opacity: 0.5;
+        }
+
         .main-logo {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             background: white;
             border-radius: 50%;
-            border: 3px solid var(--gold-accent);
-            margin: 0 auto 15px;
+            border: 2px solid var(--gold-accent);
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(160, 48, 37, 0.1);
+            outline: 5px solid white;
         }
+
         .restaurant-name {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
+            font-weight: 700;
             color: var(--terracotta);
             line-height: 1;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
         }
+
         .restaurant-tagline {
             font-family: 'Playfair Display', serif;
             font-style: italic;
             color: var(--teal-dark);
-            letter-spacing: 1px;
-            margin-top: 5px;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            opacity: 0.8;
         }
+
+        .divider-container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .divider-line {
+            height: 1px;
+            width: 40px;
+            background: linear-gradient(to right, transparent, var(--gold-accent));
+        }
+        .divider-line.right { background: linear-gradient(to left, transparent, var(--gold-accent)); }
+
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            padding: 20px;
+            gap: 20px;
+            padding: 10px 25px 40px;
         }
+
         .home-card {
             background: white;
-            border: 1.5px solid var(--gold-accent);
-            border-radius: 15px;
-            padding: 20px 10px;
+            border: 1px solid rgba(197, 160, 96, 0.3);
+            border-radius: 0px; /* Square/Classic look */
+            padding: 25px 15px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            position: relative;
+            box-shadow: 5px 5px 0px var(--gold-accent); /* Retro offset shadow */
+            overflow: hidden;
         }
-        .home-card:active { transform: scale(0.95); background-color: #fff9eb; }
-        .home-card-icon { font-size: 2.5rem; margin-bottom: 10px; }
+
+        .home-card:active { 
+            transform: translate(3px, 3px); 
+            box-shadow: 0px 0px 0px var(--gold-accent);
+        }
+
+        .home-card-icon { 
+            font-size: 2.8rem; 
+            margin-bottom: 12px;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
+            display: block;
+        }
+
         .home-card-title {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             font-size: 1.1rem;
-            color: var(--terracotta);
-            text-transform: capitalize;
+            color: var(--teal-dark);
+            position: relative;
+            z-index: 2;
         }
 
-        /* --- CATEGORY PAGE STYLING (UNCHANGED LOGIC) --- */
+        /* Decorative line under title */
+        .home-card::after {
+            content: "";
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: var(--terracotta);
+            transition: width 0.3s ease;
+        }
+        .home-card:hover::after { width: 40px; }
+
+        /* --- CATEGORY PAGE STYLING (UNCHANGED) --- */
         #sticky-header-unit {
             position: sticky; top: 0; z-index: 100;
             background-color: var(--parchment);
@@ -129,11 +189,12 @@
             <img src="https://via.placeholder.com/150" alt="Adda Logo" class="w-4/5 h-4/5 object-contain">
         </div>
         <h1 class="restaurant-name">Adda</h1>
-        <p class="restaurant-tagline">Opulent Flavours of Colonial Bengal</p>
-        <div class="mt-4 flex justify-center gap-2">
-            <span class="h-1 w-8 bg-gold-accent rounded-full" style="background-color: var(--gold-accent);"></span>
-            <span class="h-1 w-2 bg-gold-accent rounded-full" style="background-color: var(--gold-accent);"></span>
-            <span class="h-1 w-8 bg-gold-accent rounded-full" style="background-color: var(--gold-accent);"></span>
+        <p class="restaurant-tagline">Colonial Flavours & Fine Dining</p>
+        
+        <div class="divider-container">
+            <div class="divider-line"></div>
+            <span style="color: var(--gold-accent); font-size: 0.8rem;">✦</span>
+            <div class="divider-line right"></div>
         </div>
     </header>
 
@@ -159,7 +220,6 @@
         let menuData = [];
         let groupedData = {};
 
-        // Helper to get icons for categories
         const categoryIcons = {
             'Appetizers': '🥟',
             'Main Course': '🍛',
@@ -197,7 +257,7 @@
             const container = document.getElementById('landing-page');
             container.innerHTML = categories.map(cat => `
                 <div class="home-card" onclick="showCategory('${cat}')">
-                    <div class="home-card-icon">${categoryIcons[cat] || categoryIcons['default']}</div>
+                    <span class="home-card-icon">${categoryIcons[cat] || categoryIcons['default']}</span>
                     <h3 class="home-card-title">${cat}</h3>
                 </div>
             `).join('');
