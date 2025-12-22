@@ -25,55 +25,90 @@
             min-height: 100vh;
         }
 
-        /* FIXED HEADER UNIT */
+        /* --- HOMEPAGE SPECIFIC STYLING --- */
+        .hero-banner {
+            background: linear-gradient(rgba(0,0,0,0.05), rgba(0,0,0,0.05)), url('https://www.transparenttextures.com/patterns/pinstripe.png');
+            border-bottom: 3px double var(--gold-accent);
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .main-logo {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            border: 3px solid var(--gold-accent);
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .restaurant-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--terracotta);
+            line-height: 1;
+        }
+        .restaurant-tagline {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--teal-dark);
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 20px;
+        }
+        .home-card {
+            background: white;
+            border: 1.5px solid var(--gold-accent);
+            border-radius: 15px;
+            padding: 20px 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .home-card:active { transform: scale(0.95); background-color: #fff9eb; }
+        .home-card-icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .home-card-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--terracotta);
+            text-transform: capitalize;
+        }
+
+        /* --- CATEGORY PAGE STYLING (UNCHANGED LOGIC) --- */
         #sticky-header-unit {
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            position: sticky; top: 0; z-index: 100;
             background-color: var(--parchment);
             border-bottom: 2px solid var(--gold-accent);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        
         #sub-nav-bar {
-            display: flex;
-            overflow-x: auto;
-            white-space: nowrap;
-            gap: 10px;
-            padding: 10px;
-            scrollbar-width: none;
+            display: flex; overflow-x: auto; white-space: nowrap;
+            gap: 10px; padding: 10px; scrollbar-width: none;
         }
         #sub-nav-bar::-webkit-scrollbar { display: none; }
-
         .sub-nav-item {
-            padding: 8px 18px;
-            background: white;
-            border: 1px solid var(--gold-accent);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--teal-dark);
-            cursor: pointer;
+            padding: 8px 18px; background: white; border: 1px solid var(--gold-accent);
+            border-radius: 20px; font-size: 0.85rem; font-weight: 700;
+            color: var(--teal-dark); cursor: pointer;
         }
-
-        /* HIGHLIGHT ACTIVE SUB-CATEGORY */
         .sub-nav-item.active {
-            background-color: var(--terracotta) !important;
-            color: white !important;
+            background-color: var(--terracotta) !important; color: white !important;
             border-color: var(--terracotta) !important;
         }
-
-        /* LOGO & CARDS */
-        .logo-container {
-            width: 100px; height: 100px;
-            border-radius: 50%; border: 3px solid var(--gold-accent);
-            margin: 0 auto 10px auto; background: white;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .logo-container img { width: 85%; height: 85%; object-fit: contain; }
         .dish-card img { width: 100%; height: 200px; object-fit: cover; border-bottom: 3px solid var(--gold-accent); }
-        
-        /* VEG/NON-VEG LABEL */
         .food-label {
             width: 16px; height: 16px; border: 1.5px solid;
             display: inline-flex; align-items: center; justify-content: center;
@@ -84,31 +119,36 @@
         .label-veg div { background-color: var(--veg-green); }
         .label-nonveg { border-color: var(--nonveg-red); }
         .label-nonveg div { background-color: var(--nonveg-red); }
-
         .hidden { display: none !important; }
     </style>
 </head>
 <body class="max-w-md mx-auto pb-10">
 
-    <header id="landing-header" class="text-center py-10 px-4">
-        <div class="logo-container">
-            <img src="https://via.placeholder.com/150" alt="Adda Logo">
+    <header id="landing-header" class="hero-banner">
+        <div class="main-logo">
+            <img src="https://via.placeholder.com/150" alt="Adda Logo" class="w-4/5 h-4/5 object-contain">
         </div>
-        <h1 class="text-4xl font-bold text-[#2c2c2c] tracking-tight">Adda</h1>
+        <h1 class="restaurant-name">Adda</h1>
+        <p class="restaurant-tagline">Opulent Flavours of Colonial Bengal</p>
+        <div class="mt-4 flex justify-center gap-2">
+            <span class="h-1 w-8 bg-gold-accent rounded-full" style="background-color: var(--gold-accent);"></span>
+            <span class="h-1 w-2 bg-gold-accent rounded-full" style="background-color: var(--gold-accent);"></span>
+            <span class="h-1 w-8 bg-gold-accent rounded-full" style="background-color: var(--gold-accent);"></span>
+        </div>
     </header>
 
-    <div id="landing-page" class="p-4 grid grid-cols-2 gap-4"></div>
+    <div id="landing-page" class="menu-grid"></div>
 
     <div id="category-page" class="hidden">
         <div id="sticky-header-unit">
-            <div class="px-4 pt-3">
-                <button onclick="showLanding()" class="text-xs font-bold text-white bg-[#004b49] px-4 py-2 rounded-full shadow-md uppercase tracking-wider">
+            <div class="px-4 pt-3 flex justify-between items-center">
+                <button onclick="showLanding()" class="text-xs font-bold text-white bg-[#004b49] px-4 py-2 rounded-full shadow-md uppercase">
                     ← Back to Home
                 </button>
+                <span class="font-serif italic text-terracotta text-sm">Fine Dining</span>
             </div>
             <div id="sub-nav-bar"></div>
         </div>
-
         <div class="p-4 mt-2">
             <div id="items-container" class="space-y-6"></div>
         </div>
@@ -118,6 +158,17 @@
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS3_itP09OmeOPyazHQP6mC228ZuaTJu5poQoJvfxqQDQNR4kg33fr08eDSgYJ-hOKzirPCNMyXCzOm/pub?output=csv';
         let menuData = [];
         let groupedData = {};
+
+        // Helper to get icons for categories
+        const categoryIcons = {
+            'Appetizers': '🥟',
+            'Main Course': '🍛',
+            'Beverages': '🍹',
+            'Desserts': '🍰',
+            'Breads': '🫓',
+            'Salads': '🥗',
+            'default': '🍽️'
+        };
 
         async function initMenu() {
             try {
@@ -145,8 +196,9 @@
             const categories = [...new Set(menuData.map(item => item.category))];
             const container = document.getElementById('landing-page');
             container.innerHTML = categories.map(cat => `
-                <div class="category-card bg-white p-6 text-center cursor-pointer border rounded-xl shadow-sm active:scale-95 transition-transform" onclick="showCategory('${cat}')">
-                    <h3 class="font-serif font-bold text-lg">${cat}</h3>
+                <div class="home-card" onclick="showCategory('${cat}')">
+                    <div class="home-card-icon">${categoryIcons[cat] || categoryIcons['default']}</div>
+                    <h3 class="home-card-title">${cat}</h3>
                 </div>
             `).join('');
         }
@@ -166,8 +218,7 @@
 
             const subCategories = Object.keys(groupedData);
             const navBar = document.getElementById('sub-nav-bar');
-            
-            navBar.innerHTML = subCategories.map((sub, index) => `
+            navBar.innerHTML = subCategories.map(sub => `
                 <div class="sub-nav-item" data-id="${sub}" onclick="renderSubCategory('${sub}')">
                     ${sub}
                 </div>
@@ -177,12 +228,10 @@
         }
 
         function renderSubCategory(subName) {
-            // Update Active Tab UI
             document.querySelectorAll('.sub-nav-item').forEach(btn => {
                 btn.classList.toggle('active', btn.getAttribute('data-id') === subName);
             });
 
-            // CLEAR AND REPLACE ITEMS
             const container = document.getElementById('items-container');
             container.innerHTML = ''; 
 
