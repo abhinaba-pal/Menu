@@ -3,139 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Babu-Bibi Restaurant Menu</title>
+    <title>Adda - Restaurant & Caterer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --parchment: #fdfaf0;
-            --terracotta: #a03025; /* Slightly deeper red for elegance */
-            --gold-accent: #c5a060; /* New gold color for accents */
+            --terracotta: #a03025;
+            --gold-accent: #c5a060;
             --teal-dark: #004b49;
         }
         body { 
             background-color: var(--parchment); 
             font-family: 'Inter', sans-serif;
             color: #2c2c2c;
-            /* Adds a subtle artistic border to the whole page */
             background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
             border-left: 8px solid var(--terracotta);
             border-right: 8px solid var(--terracotta);
             min-height: 100vh;
         }
-        /* New Header Styles */
+        /* Circular Logo Design */
         .logo-container {
-            width: 100px;
-            height: 100px;
-            /* Makes it a perfect circle with a gold border */
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             border: 4px solid var(--gold-accent);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
             overflow: hidden;
-            margin: 0 auto; /* Centers the logo */
+            margin: 0 auto;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
         }
         .tagline {
             font-family: 'Playfair Display', serif;
             font-style: italic;
             color: var(--terracotta);
-            border-bottom: 2px solid var(--gold-accent);
+            border-top: 1px solid var(--gold-accent);
+            border-bottom: 1px solid var(--gold-accent);
             display: inline-block;
-            padding-bottom: 0.5rem;
+            padding: 4px 20px;
+            margin-top: 8px;
+            font-size: 1.1rem;
         }
-        /* Existing Styles Refined */
         .category-card {
             background: white;
             border: 1px solid #e2e2e2;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Softened shadow */
-            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            border-radius: 12px;
         }
-        .category-card:active { transform: scale(0.98); background-color: #fafafa; }
+        .category-card:active { transform: scale(0.95); }
         .dish-card img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
             border-bottom: 3px solid var(--gold-accent);
         }
-        /* New Sub-Category Separator Style */
+        /* Sub-Category Divider */
         .sub-category-header {
             font-family: 'Playfair Display', serif;
             color: var(--teal-dark);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
+            margin: 2.5rem 0 1.5rem 0;
             display: flex;
             align-items: center;
+            text-align: center;
         }
-        /* Adds decorative lines on either side of the sub-category title */
-        .sub-category-header::before,
-        .sub-category-header::after {
+        .sub-category-header::before, .sub-category-header::after {
             content: "";
             flex: 1;
             border-bottom: 2px dotted var(--gold-accent);
-            margin: 0 1rem;
+            margin: 0 15px;
         }
         .hidden { display: none; }
     </style>
 </head>
 <body class="max-w-md mx-auto pb-10">
 
-    <header class="text-center py-8 px-4 bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')]">
-        <h1 class="text-4xl babu-header text-[#8b0000] mb-2">Babu & Bibi</h1>
-        <p class="italic text-sm text-gray-600">Opulent Flavours of Colonial Bengal</p>
+    <header class="text-center py-10 px-4">
+        <div class="logo-container mb-4">
+            <img src="https://via.placeholder.com/150" alt="Adda Logo">
+        </div>
+        <h1 class="text-4xl font-bold text-[#2c2c2c] tracking-tight">Adda</h1>
+        <p class="tagline">Restaurant and Caterer</p>
     </header>
 
-    <div id="landing-page" class="p-4 grid grid-cols-2 gap-4">
-        </div>
+    <div id="landing-page" class="p-4 grid grid-cols-2 gap-4"></div>
 
     <div id="category-page" class="hidden p-4">
-        <button onclick="showLanding()" class="mb-4 text-sm font-bold text-[#004b49] flex items-center">
+        <button onclick="showLanding()" class="mb-6 text-sm font-bold text-[#004b49] flex items-center bg-white px-3 py-1 rounded-full shadow-sm border border-gray-200">
             ← BACK TO MENU
         </button>
-        <h2 id="current-category-title" class="text-3xl font-serif text-[#8b0000] mb-6 border-b pb-2"></h2>
-        <div id="items-container" class="space-y-8">
-            </div>
+        <h2 id="current-category-title" class="text-3xl font-serif text-[#a03025] mb-2 text-center"></h2>
+        <div id="items-container"></div>
     </div>
 
     <script>
-        // PASTE YOUR PUBLISHED GOOGLE SHEETS CSV LINK HERE
+        // PASTE YOUR GOOGLE SHEET CSV LINK HERE
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS3_itP09OmeOPyazHQP6mC228ZuaTJu5poQoJvfxqQDQNR4kg33fr08eDSgYJ-hOKzirPCNMyXCzOm/pub?output=csv';
 
         let menuData = [];
 
         async function initMenu() {
-            const response = await fetch(SHEET_URL);
-            const data = await response.text();
-            const rows = data.split('\n').slice(1);
-            
-            menuData = rows.map(row => {
-                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // Robust CSV split
-                return {
-                    category: cols[0]?.replace(/"/g, '').trim(),
-                    subCategory: cols[1]?.replace(/"/g, '').trim(),
-                    name: cols[2]?.replace(/"/g, '').trim(),
-                    desc: cols[3]?.replace(/"/g, '').trim(),
-                    pieces: cols[4]?.replace(/"/g, '').trim(),
-                    price: cols[5]?.replace(/"/g, '').trim(),
-                    image: cols[6]?.replace(/"/g, '').trim()
-                };
-            }).filter(item => item.name);
+            try {
+                const response = await fetch(SHEET_URL);
+                const data = await response.text();
+                const rows = data.split('\n').slice(1);
+                
+                menuData = rows.map(row => {
+                    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    return {
+                        category: cols[0]?.replace(/"/g, '').trim(),
+                        subCategory: cols[1]?.replace(/"/g, '').trim(),
+                        name: cols[2]?.replace(/"/g, '').trim(),
+                        desc: cols[3]?.replace(/"/g, '').trim(),
+                        pieces: cols[4]?.replace(/"/g, '').trim(),
+                        price: cols[5]?.replace(/"/g, '').trim(),
+                        image: cols[6]?.replace(/"/g, '').trim()
+                    };
+                }).filter(item => item.name);
 
-            renderLanding();
+                renderLanding();
+            } catch (e) {
+                console.error("Error loading menu:", e);
+            }
         }
 
         function renderLanding() {
             const categories = [...new Set(menuData.map(item => item.category))];
             const container = document.getElementById('landing-page');
             container.innerHTML = categories.map(cat => `
-                <div class="category-card p-6 text-center cursor-pointer" onclick="showCategory('${cat}')">
-                    <div class="text-3xl mb-2">🍽️</div>
-                    <h3 class="font-serif font-bold text-lg">${cat}</h3>
+                <div class="category-card p-6 text-center cursor-pointer flex flex-col items-center" onclick="showCategory('${cat}')">
+                    <div class="text-4xl mb-3">🍛</div>
+                    <h3 class="font-serif font-bold text-lg leading-tight">${cat}</h3>
                 </div>
             `).join('');
         }
@@ -145,45 +153,38 @@
             document.getElementById('category-page').classList.remove('hidden');
             document.getElementById('current-category-title').innerText = cat;
             
-            // 1. Filter items for the selected category
             const filtered = menuData.filter(item => item.category === cat);
             
-            // 2. Group the filtered items by their 'subCategory'
             const groupedBySubCat = filtered.reduce((acc, item) => {
-                const subCat = item.subCategory || 'Other'; // Default to 'Other' if blank
-                if (!acc[subCat]) {
-                    acc[subCat] = [];
-                }
+                const subCat = item.subCategory || 'General';
+                if (!acc[subCat]) acc[subCat] = [];
                 acc[subCat].push(item);
                 return acc;
             }, {});
-        
+
             const container = document.getElementById('items-container');
-            container.innerHTML = ''; // Clear previous content
-        
-            // 3. Iterate through each sub-category group and render
-            for (const [subCatName, items] in Object.entries(groupedBySubCat)) {
-                // Create and append the Sub-Category Separator
+            container.innerHTML = '';
+
+            // FIXED: Changed "in" to "of" to allow items to display correctly
+            for (const [subCatName, items] of Object.entries(groupedBySubCat)) {
                 const subCatHeader = document.createElement('h3');
                 subCatHeader.className = 'sub-category-header';
                 subCatHeader.innerText = subCatName;
                 container.appendChild(subCatHeader);
-        
-                // Create a container for the list of items within this sub-category
+
                 const itemsList = document.createElement('div');
-                itemsList.className = 'space-y-6 mb-8'; // Add spacing between items and after the group
-        
-                // Render each dish card within the sub-category
+                itemsList.className = 'space-y-6';
+
                 itemsList.innerHTML = items.map(item => `
-                    <div class="dish-card bg-white rounded-xl overflow-hidden shadow-md relative">
+                    <div class="dish-card bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
                         ${item.image ? `<img src="${item.image}" alt="${item.name}">` : ''}
                         <div class="p-5">
                             <div class="flex justify-between items-start mb-2">
-                                <h4 class="text-xl font-bold text-[#a03025] font-serif">${item.name}</h4>
-                                <span class="font-bold text-lg text-[#2c2c2c]">₹${item.price}</span>
+                                <h4 class="text-xl font-bold text-[#a03025] font-serif leading-tight">${item.name}</h4>
+                                <span class="font-bold text-lg text-gray-800 ml-2">₹${item.price}</span>
                             </div>
-                            ${item.pieces ? `<span class="inline-block bg-[#fdfaf0] text-[#004b49] text-xs px-2 py-1 rounded-full font-semibold mb-3 border border-[#c5a060]">${item.pieces}</span>` : ''}
-                            <p class="text-sm text-gray-600 leading-relaxed">${item.desc}</p>
+                            ${item.pieces ? `<span class="inline-block bg-[#fdfaf0] text-[#004b49] text-xs px-2 py-1 rounded-md font-bold mb-3 border border-[#c5a060] uppercase tracking-wide">${item.pieces} PIECES</span>` : ''}
+                            <p class="text-sm text-gray-600 leading-relaxed italic">${item.desc}</p>
                         </div>
                     </div>
                 `).join('');
