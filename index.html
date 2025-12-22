@@ -24,42 +24,42 @@
             border-right: 8px solid var(--terracotta);
             min-height: 100vh;
         }
-        /* PERSISTENT SUB-NAV BAR */
+
+        /* IMPROVED STICKY TAB BAR */
         #sub-nav-wrapper {
             position: sticky;
             top: 0;
             z-index: 100;
             background-color: var(--parchment);
             border-bottom: 2px solid var(--gold-accent);
-            padding: 12px 5px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 12px 10px;
         }
         #sub-nav-bar {
             display: flex;
             overflow-x: auto;
             white-space: nowrap;
-            gap: 8px;
+            gap: 10px;
             scrollbar-width: none;
         }
         #sub-nav-bar::-webkit-scrollbar { display: none; }
 
         .sub-nav-item {
-            padding: 8px 16px;
+            padding: 8px 18px;
             background: white;
             border: 1px solid var(--gold-accent);
-            border-radius: 25px;
+            border-radius: 20px;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--teal-dark);
-            transition: all 0.3s ease;
             cursor: pointer;
+            transition: all 0.2s ease-in-out;
         }
-        /* HIGHLIGHT FOR ACTIVE SUB-CATEGORY */
+
+        /* ACTIVE TAB STYLING */
         .sub-nav-item.active {
-            background-color: var(--terracotta);
-            color: white;
-            border-color: var(--terracotta);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            background-color: var(--terracotta) !important;
+            color: white !important;
+            border-color: var(--terracotta) !important;
         }
 
         .logo-container {
@@ -70,19 +70,11 @@
             display: flex; align-items: center; justify-content: center;
         }
         .logo-container img { width: 90%; height: 90%; object-fit: contain; }
-        .tagline {
-            font-family: 'Playfair Display', serif; font-style: italic;
-            color: var(--terracotta); border-top: 1px solid var(--gold-accent);
-            border-bottom: 1px solid var(--gold-accent);
-            display: inline-block; padding: 4px 20px; margin-top: 8px; font-size: 1.1rem;
-        }
-        .category-card {
-            background: white; border: 1px solid #e2e2e2;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: all 0.2s; border-radius: 12px;
-        }
+        
+        /* DISH CARD DESIGN - PRESERVED */
         .dish-card img { width: 100%; height: 200px; object-fit: cover; border-bottom: 3px solid var(--gold-accent); }
         
-        /* FOOD LABELS (KEPT SAME) */
+        /* VEG/NON-VEG LABEL - PRESERVED */
         .food-label {
             width: 16px; height: 16px; border: 1.5px solid;
             display: inline-flex; align-items: center; justify-content: center;
@@ -94,15 +86,7 @@
         .label-nonveg { border-color: var(--nonveg-red); }
         .label-nonveg div { background-color: var(--nonveg-red); }
 
-        .sub-category-header {
-            font-family: 'Playfair Display', serif; color: var(--teal-dark);
-            font-size: 1.5rem; font-weight: 700; margin: 1.5rem 0 1.5rem 0;
-            display: flex; align-items: center; text-align: center;
-        }
-        .sub-category-header::before, .sub-category-header::after {
-            content: ""; flex: 1; border-bottom: 2px dotted var(--gold-accent); margin: 0 15px;
-        }
-        .hidden { display: none; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body class="max-w-md mx-auto pb-10">
@@ -112,7 +96,6 @@
             <img src="https://via.placeholder.com/150" alt="Adda Logo">
         </div>
         <h1 class="text-4xl font-bold text-[#2c2c2c] tracking-tight">Adda</h1>
-        <p class="tagline">Restaurant and Caterer</p>
     </header>
 
     <div id="landing-page" class="p-4 grid grid-cols-2 gap-4"></div>
@@ -126,15 +109,14 @@
             <button onclick="showLanding()" class="mb-6 text-sm font-bold text-[#004b49] flex items-center bg-white px-3 py-1 rounded-full shadow-sm border border-gray-200">
                 ← BACK TO MENU
             </button>
-            <h2 id="current-category-title" class="text-3xl font-serif text-[#a03025] mb-2 text-center"></h2>
-            <div id="items-container"></div>
+            <div id="items-container" class="space-y-6"></div>
         </div>
     </div>
 
     <script>
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS3_itP09OmeOPyazHQP6mC228ZuaTJu5poQoJvfxqQDQNR4kg33fr08eDSgYJ-hOKzirPCNMyXCzOm/pub?output=csv';
         let menuData = [];
-        let groupedData = {};
+        let currentGroupedData = {};
 
         async function initMenu() {
             try {
@@ -162,9 +144,8 @@
             const categories = [...new Set(menuData.map(item => item.category))];
             const container = document.getElementById('landing-page');
             container.innerHTML = categories.map(cat => `
-                <div class="category-card p-6 text-center cursor-pointer flex flex-col items-center" onclick="showCategory('${cat}')">
-                    <div class="text-4xl mb-3">🍛</div>
-                    <h3 class="font-serif font-bold text-lg leading-tight">${cat}</h3>
+                <div class="category-card bg-white p-6 text-center cursor-pointer border rounded-xl" onclick="showCategory('${cat}')">
+                    <h3 class="font-serif font-bold text-lg">${cat}</h3>
                 </div>
             `).join('');
         }
@@ -173,49 +154,44 @@
             document.getElementById('landing-page').classList.add('hidden');
             document.getElementById('main-header').classList.add('hidden');
             document.getElementById('category-page').classList.remove('hidden');
-            document.getElementById('current-category-title').innerText = cat;
             
             const filtered = menuData.filter(item => item.category === cat);
-            groupedData = filtered.reduce((acc, item) => {
+            currentGroupedData = filtered.reduce((acc, item) => {
                 const subCat = item.subCategory || 'General';
                 if (!acc[subCat]) acc[subCat] = [];
                 acc[subCat].push(item);
                 return acc;
             }, {});
 
-            const subCategories = Object.keys(groupedData);
+            const subCategories = Object.keys(currentGroupedData);
             const navBar = document.getElementById('sub-nav-bar');
             
             navBar.innerHTML = subCategories.map((sub, index) => `
-                <div id="btn-${sub.replace(/\s+/g, '')}" class="sub-nav-item ${index === 0 ? 'active' : ''}" onclick="filterSubCategory('${sub}')">
+                <div class="sub-nav-item" data-subname="${sub}" onclick="renderSubCategory('${sub}')">
                     ${sub}
                 </div>
             `).join('');
 
-            // Automatically show the first sub-category
-            filterSubCategory(subCategories[0]);
+            // Automatically render the first sub-category
+            renderSubCategory(subCategories[0]);
         }
 
-        function filterSubCategory(targetSub) {
-            // Update Active Button Visuals
-            document.querySelectorAll('.sub-nav-item').forEach(btn => btn.classList.remove('active'));
-            const activeBtn = document.getElementById(`btn-${targetSub.replace(/\s+/g, '')}`);
-            if (activeBtn) activeBtn.classList.add('active');
+        function renderSubCategory(subName) {
+            // Update UI: Highlight active button
+            const buttons = document.querySelectorAll('.sub-nav-item');
+            buttons.forEach(btn => {
+                if(btn.getAttribute('data-subname') === subName) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
 
             const container = document.getElementById('items-container');
-            container.innerHTML = ''; // Clear previous items
+            const items = currentGroupedData[subName];
 
-            // Render ONLY the items for this specific sub-category
-            const items = groupedData[targetSub];
-            
-            const subHeader = document.createElement('h3');
-            subHeader.className = 'sub-category-header';
-            subHeader.innerText = targetSub;
-            container.appendChild(subHeader);
-
-            const itemsList = document.createElement('div');
-            itemsList.className = 'space-y-6';
-            itemsList.innerHTML = items.map(item => {
+            // Re-render only the filtered items
+            container.innerHTML = items.map(item => {
                 let labelHtml = '';
                 if (item.type) {
                     const isVeg = item.type.toLowerCase() === 'veg';
@@ -239,15 +215,14 @@
                 `;
             }).join('');
             
-            container.appendChild(itemsList);
-            window.scrollTo(0,0);
+            window.scrollTo(0, 0); // Reset scroll to top of category
         }
 
         function showLanding() {
             document.getElementById('landing-page').classList.remove('hidden');
             document.getElementById('main-header').classList.remove('hidden');
             document.getElementById('category-page').classList.add('hidden');
-            window.scrollTo(0,0);
+            window.scrollTo(0, 0);
         }
 
         initMenu();
