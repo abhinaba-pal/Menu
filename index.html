@@ -24,122 +24,20 @@
             border-right: 8px solid var(--terracotta);
             min-height: 100vh;
         }
-
-        .hero-banner {
-            padding: 60px 20px 40px;
-            text-align: center;
-            background: radial-gradient(circle at center, rgba(197, 160, 96, 0.1) 0%, transparent 70%);
-            position: relative;
-        }
-        
-        .hero-banner::before {
-            content: "❧";
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: var(--gold-accent);
-            font-size: 2rem;
-            opacity: 0.5;
-        }
-
-        .main-logo {
-            width: 110px;
-            height: 110px;
-            background: white;
-            border-radius: 50%;
-            border: 2px solid var(--gold-accent);
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 25px rgba(160, 48, 37, 0.1);
-            outline: 5px solid white;
-        }
-
-        .restaurant-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--terracotta);
-            line-height: 1;
-            letter-spacing: -1px;
-            margin-bottom: 5px;
-        }
-
-        .restaurant-tagline {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--teal-dark);
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            opacity: 0.8;
-        }
-
-        .divider-container {
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        .divider-line {
-            height: 1px;
-            width: 40px;
-            background: linear-gradient(to right, transparent, var(--gold-accent));
-        }
-        .divider-line.right { background: linear-gradient(to left, transparent, var(--gold-accent)); }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            padding: 10px 25px 40px;
-        }
-
-        .home-card {
-            background: white;
-            border: 1px solid rgba(197, 160, 96, 0.3);
-            padding: 25px 15px;
-            text-align: center;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            position: relative;
-            box-shadow: 5px 5px 0px var(--gold-accent);
-        }
-
+        .hero-banner { padding: 60px 20px 40px; text-align: center; position: relative; }
+        .main-logo { width: 110px; height: 110px; background: white; border-radius: 50%; border: 2px solid var(--gold-accent); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(160, 48, 37, 0.1); outline: 5px solid white; }
+        .restaurant-name { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 700; color: var(--terracotta); line-height: 1; margin-bottom: 5px; }
+        .restaurant-tagline { font-family: 'Playfair Display', serif; font-style: italic; color: var(--teal-dark); letter-spacing: 2px; font-size: 0.9rem; text-transform: uppercase; }
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 10px 25px 40px; }
+        .home-card { background: white; border: 1px solid rgba(197, 160, 96, 0.3); padding: 25px 15px; text-align: center; cursor: pointer; box-shadow: 5px 5px 0px var(--gold-accent); transition: 0.2s; }
         .home-card:active { transform: translate(3px, 3px); box-shadow: 0px 0px 0px; }
-
         .home-card-icon { font-size: 2.5rem; margin-bottom: 10px; display: block; }
-
-        .home-card-title {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--teal-dark);
-        }
-
-        #sticky-header-unit {
-            position: sticky; top: 0; z-index: 100;
-            background-color: var(--parchment);
-            border-bottom: 2px solid var(--gold-accent);
-        }
-        #sub-nav-bar {
-            display: flex; overflow-x: auto; white-space: nowrap;
-            gap: 10px; padding: 10px; scrollbar-width: none;
-        }
-        .sub-nav-item {
-            padding: 8px 18px; background: white; border: 1px solid var(--gold-accent);
-            border-radius: 20px; font-size: 0.85rem; font-weight: 700; color: var(--teal-dark);
-        }
+        .home-card-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; color: var(--teal-dark); }
+        #sticky-header-unit { position: sticky; top: 0; z-index: 100; background-color: var(--parchment); border-bottom: 2px solid var(--gold-accent); }
+        #sub-nav-bar { display: flex; overflow-x: auto; white-space: nowrap; gap: 10px; padding: 10px; scrollbar-width: none; }
+        .sub-nav-item { padding: 8px 18px; background: white; border: 1px solid var(--gold-accent); border-radius: 20px; font-size: 0.85rem; font-weight: 700; color: var(--teal-dark); }
         .sub-nav-item.active { background-color: var(--terracotta); color: white; border-color: var(--terracotta); }
-
-        /* Dish Label Styles */
-        .food-label {
-            width: 16px; height: 16px; border: 1.5px solid;
-            display: inline-flex; align-items: center; justify-content: center;
-            margin-right: 10px; flex-shrink: 0; background: white;
-        }
+        .food-label { width: 16px; height: 16px; border: 1.5px solid; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0; background: white; }
         .food-label div { width: 8px; height: 8px; border-radius: 50%; }
         .label-veg { border-color: var(--veg-green); }
         .label-veg div { background-color: var(--veg-green); }
@@ -156,14 +54,11 @@
         </div>
         <h1 class="restaurant-name">Adda</h1>
         <p class="restaurant-tagline">Colonial Flavours & Fine Dining</p>
-        <div class="divider-container">
-            <div class="divider-line"></div>
-            <span style="color: var(--gold-accent); font-size: 0.8rem;">✦</span>
-            <div class="divider-line right"></div>
-        </div>
     </header>
 
-    <div id="landing-page" class="menu-grid"></div>
+    <div id="landing-page" class="menu-grid">
+        <p class="text-center col-span-2 py-10 opacity-50">Loading menu...</p>
+    </div>
 
     <div id="category-page" class="hidden">
         <div id="sticky-header-unit">
@@ -181,33 +76,31 @@
     </div>
 
     <script>
-        // UPDATED URL: Using the CSV format export
+        // Updated Link provided by you
         const SHEET_URL = 'https://sheet.zohopublic.in/sheet/published/shhin301ba89480b14ac0ad8136475ac17a77?download=csv&sheetname=Sheet1';
         
         let menuData = [];
         let groupedData = {};
 
         const categoryIcons = {
-            'Appetizers': '🥟',
-            'Main Course': '🍛',
-            'Beverages': '🍹',
-            'Desserts': '🍰',
-            'Breads': '🫓',
-            'Salads': '🥗',
-            'Starters': '🔥',
-            'default': '🍽️'
+            'Appetizers': '🥟', 'Starters': '🔥', 'Main Course': '🍛', 
+            'Breads': '🫓', 'Beverages': '🍹', 'default': '🍽️'
         };
 
         async function initMenu() {
             try {
                 const response = await fetch(SHEET_URL);
-                const data = await response.text();
-                const rows = data.split('\n').slice(1);
+                if (!response.ok) throw new Error('Network error');
+                const text = await response.text();
                 
-                menuData = rows.map(row => {
-                    // Split by comma but handle quotes
+                // Parse CSV rows
+                const rows = text.split(/\r?\n/).filter(row => row.trim() !== "");
+                
+                menuData = rows.slice(1).map(row => {
+                    // Split CSV safely handling quotes
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                     return {
+                        // Using cols[0] for "Cetegory" as seen in your Zoho screenshot
                         category: cols[0]?.replace(/"/g, '').trim(),
                         subCategory: cols[1]?.replace(/"/g, '').trim(),
                         name: cols[2]?.replace(/"/g, '').trim(),
@@ -220,9 +113,12 @@
                 }).filter(item => item.name && item.category);
 
                 renderLanding();
-            } catch (e) { 
-                console.error("Error fetching data:", e);
-                document.getElementById('landing-page').innerHTML = "<p class='text-center col-span-2'>Unable to load menu. Please check the data source.</p>";
+            } catch (e) {
+                console.error(e);
+                document.getElementById('landing-page').innerHTML = `
+                    <p class='text-center col-span-2 py-10 text-red-700 font-bold'>
+                        Unable to load menu.<br><span class='text-xs font-normal text-gray-500'>Please check connection.</span>
+                    </p>`;
             }
         }
 
@@ -253,9 +149,7 @@
             const subCategories = Object.keys(groupedData);
             const navBar = document.getElementById('sub-nav-bar');
             navBar.innerHTML = subCategories.map(sub => `
-                <div class="sub-nav-item" data-id="${sub}" onclick="renderSubCategory('${sub}')">
-                    ${sub}
-                </div>
+                <div class="sub-nav-item" onclick="renderSubCategory('${sub}')">${sub}</div>
             `).join('');
 
             renderSubCategory(subCategories[0]);
@@ -270,24 +164,21 @@
             const items = groupedData[subName];
             
             container.innerHTML = items.map(item => {
-                let labelHtml = '';
-                if (item.type) {
-                    const isVeg = item.type.toLowerCase().includes('veg') && !item.type.toLowerCase().includes('non');
-                    labelHtml = `<div class="food-label ${isVeg ? 'label-veg' : 'label-nonveg'}"><div></div></div>`;
-                }
+                const isVeg = item.type?.toLowerCase().includes('veg') && !item.type?.toLowerCase().includes('non');
+                const labelClass = isVeg ? 'label-veg' : 'label-nonveg';
+                
                 return `
-                    <div class="dish-card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100">
-                        ${item.image && item.image !== "" ? `<img src="${item.image}" alt="${item.name}">` : ''}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="p-4">
                             <div class="flex justify-between items-start">
-                                <div class="flex items-center">
-                                    ${labelHtml}
-                                    <h4 class="text-lg font-bold text-[#a03025] font-serif">${item.name}</h4>
+                                <div class="flex items-start">
+                                    <div class="food-label ${labelClass} mt-1"><div></div></div>
+                                    <h4 class="text-lg font-bold text-[#a03025] font-serif leading-tight">${item.name}</h4>
                                 </div>
-                                <span class="font-bold text-gray-800">₹${item.price}</span>
+                                <span class="font-bold text-gray-800 ml-2">₹${item.price}</span>
                             </div>
-                            ${item.pieces ? `<span class="text-[10px] text-blue-600 font-bold uppercase block mt-1">${item.pieces} PIECES</span>` : ''}
-                            <p class="text-sm text-gray-600 italic mt-2">${item.desc}</p>
+                            ${item.pieces ? `<span class="text-[10px] text-blue-600 font-bold uppercase mt-1 block">${item.pieces} PIECES</span>` : ''}
+                            <p class="text-sm text-gray-600 italic mt-2">${item.desc || ''}</p>
                         </div>
                     </div>
                 `;
