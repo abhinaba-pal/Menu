@@ -24,25 +24,108 @@
             border-right: 8px solid var(--terracotta);
             min-height: 100vh;
         }
-        .hero-banner { padding: 60px 20px 40px; text-align: center; position: relative; }
-        .main-logo { width: 110px; height: 110px; background: white; border-radius: 50%; border: 2px solid var(--gold-accent); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(160, 48, 37, 0.1); outline: 5px solid white; }
-        .restaurant-name { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 700; color: var(--terracotta); line-height: 1; margin-bottom: 5px; }
-        .restaurant-tagline { font-family: 'Playfair Display', serif; font-style: italic; color: var(--teal-dark); letter-spacing: 2px; font-size: 0.9rem; text-transform: uppercase; }
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 10px 25px 40px; }
-        .home-card { background: white; border: 1px solid rgba(197, 160, 96, 0.3); padding: 25px 15px; text-align: center; cursor: pointer; box-shadow: 5px 5px 0px var(--gold-accent); transition: 0.2s; }
-        .home-card:active { transform: translate(3px, 3px); box-shadow: 0px 0px 0px; }
-        .home-card-icon { font-size: 2.5rem; margin-bottom: 10px; display: block; }
-        .home-card-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; color: var(--teal-dark); }
-        #sticky-header-unit { position: sticky; top: 0; z-index: 100; background-color: var(--parchment); border-bottom: 2px solid var(--gold-accent); }
-        #sub-nav-bar { display: flex; overflow-x: auto; white-space: nowrap; gap: 10px; padding: 10px; scrollbar-width: none; }
-        .sub-nav-item { padding: 8px 18px; background: white; border: 1px solid var(--gold-accent); border-radius: 20px; font-size: 0.85rem; font-weight: 700; color: var(--teal-dark); }
+
+        .hero-banner {
+            padding: 60px 20px 40px;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(197, 160, 96, 0.1) 0%, transparent 70%);
+            position: relative;
+        }
+
+        .main-logo {
+            width: 110px;
+            height: 110px;
+            background: white;
+            border-radius: 50%;
+            border: 2px solid var(--gold-accent);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(160, 48, 37, 0.1);
+            outline: 5px solid white;
+            overflow: hidden;
+        }
+
+        .restaurant-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .restaurant-tagline {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--teal-dark);
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* Home Page Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 10px 20px 40px;
+        }
+
+        .home-card {
+            background: white;
+            border: 1px solid rgba(197, 160, 96, 0.3);
+            padding: 20px 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px var(--gold-accent);
+        }
+
+        .home-card:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px; }
+
+        .home-card-icon { font-size: 2rem; margin-bottom: 8px; display: block; }
+
+        .home-card-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--teal-dark);
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        #sticky-header-unit {
+            position: sticky; top: 0; z-index: 100;
+            background-color: var(--parchment);
+            border-bottom: 2px solid var(--gold-accent);
+        }
+        #sub-nav-bar {
+            display: flex; overflow-x: auto; white-space: nowrap;
+            gap: 10px; padding: 10px; scrollbar-width: none;
+        }
+        #sub-nav-bar::-webkit-scrollbar { display: none; }
+        
+        .sub-nav-item {
+            padding: 6px 15px; background: white; border: 1px solid var(--gold-accent);
+            border-radius: 20px; font-size: 0.75rem; font-weight: 700; color: var(--teal-dark);
+        }
         .sub-nav-item.active { background-color: var(--terracotta); color: white; border-color: var(--terracotta); }
-        .food-label { width: 16px; height: 16px; border: 1.5px solid; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0; background: white; }
-        .food-label div { width: 8px; height: 8px; border-radius: 50%; }
+
+        /* Dish Label Styles - Matching your screenshot */
+        .food-label {
+            width: 14px; height: 14px; border: 1px solid;
+            display: inline-flex; align-items: center; justify-content: center;
+            margin-right: 8px; flex-shrink: 0; background: white;
+        }
+        .food-label div { width: 7px; height: 7px; border-radius: 50%; }
         .label-veg { border-color: var(--veg-green); }
         .label-veg div { background-color: var(--veg-green); }
         .label-nonveg { border-color: var(--nonveg-red); }
         .label-nonveg div { background-color: var(--nonveg-red); }
+        
         .hidden { display: none !important; }
     </style>
 </head>
@@ -50,75 +133,77 @@
 
     <header id="landing-header" class="hero-banner">
         <div class="main-logo">
-            <img src="https://via.placeholder.com/150" alt="Adda Logo" class="w-4/5 h-4/5 object-contain">
+            <img src="https://via.placeholder.com/150" alt="Adda Logo" class="w-full h-full object-contain">
         </div>
         <h1 class="restaurant-name">Adda</h1>
         <p class="restaurant-tagline">Colonial Flavours & Fine Dining</p>
     </header>
 
     <div id="landing-page" class="menu-grid">
-        <p class="text-center col-span-2 py-10 opacity-50">Loading menu...</p>
-    </div>
+        </div>
 
     <div id="category-page" class="hidden">
         <div id="sticky-header-unit">
             <div class="px-4 pt-3 flex justify-between items-center">
-                <button onclick="showLanding()" class="text-xs font-bold text-white bg-[#004b49] px-4 py-2 rounded-full shadow-md uppercase">
-                    ← Back to Home
+                <button onclick="showLanding()" class="text-[10px] font-bold text-white bg-[#004b49] px-3 py-1.5 rounded-full shadow-md uppercase">
+                    ← Back to Menu
                 </button>
-                <span class="font-serif italic text-terracotta text-sm">Fine Dining</span>
+                <span class="font-serif italic text-terracotta text-xs">Fine Dining</span>
             </div>
             <div id="sub-nav-bar"></div>
         </div>
         <div class="p-4 mt-2">
-            <div id="items-container" class="space-y-6"></div>
+            <div id="items-container" class="space-y-4"></div>
         </div>
     </div>
 
     <script>
-        // Updated Link provided by you
+        // Updated URL from your shared CSV download link
         const SHEET_URL = 'https://sheet.zohopublic.in/sheet/published/shhin301ba89480b14ac0ad8136475ac17a77?download=csv&sheetname=Sheet1';
         
         let menuData = [];
         let groupedData = {};
 
+        // Icons for the home cards
         const categoryIcons = {
-            'Appetizers': '🥟', 'Starters': '🔥', 'Main Course': '🍛', 
-            'Breads': '🫓', 'Beverages': '🍹', 'default': '🍽️'
+            'Appetizers': '🥟', 'Starters': '🔥', 'Main Course': '🍛',
+            'Breads': '🫓', 'Beverages': '🍹', 'Desserts': '🍰',
+            'Biryani & Indian Rice': '🍚', 'Chinese Gravies': '🍜',
+            'default': '🍽️'
         };
 
         async function initMenu() {
             try {
                 const response = await fetch(SHEET_URL);
-                if (!response.ok) throw new Error('Network error');
+                if (!response.ok) throw new Error('Failed to fetch');
                 const text = await response.text();
                 
-                // Parse CSV rows
+                // Parse CSV rows accurately
                 const rows = text.split(/\r?\n/).filter(row => row.trim() !== "");
                 
                 menuData = rows.slice(1).map(row => {
-                    // Split CSV safely handling quotes
+                    // Split CSV by comma while ignoring commas inside quotes
                     const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                     return {
-                        // Using cols[0] for "Cetegory" as seen in your Zoho screenshot
-                        category: cols[0]?.replace(/"/g, '').trim(),
-                        subCategory: cols[1]?.replace(/"/g, '').trim(),
-                        name: cols[2]?.replace(/"/g, '').trim(),
-                        desc: cols[3]?.replace(/"/g, '').trim(),
-                        pieces: cols[4]?.replace(/"/g, '').trim(),
-                        price: cols[5]?.replace(/"/g, '').trim(),
-                        image: cols[6]?.replace(/"/g, '').trim(),
-                        type: cols[7]?.replace(/"/g, '').trim()
+                        // Handles 'Cetegory' typo and strips quotes
+                        category: (cols[0] || '').replace(/"/g, '').trim(),
+                        subCategory: (cols[1] || '').replace(/"/g, '').trim(),
+                        name: (cols[2] || '').replace(/"/g, '').trim(),
+                        desc: (cols[3] || '').replace(/"/g, '').trim(),
+                        pieces: (cols[4] || '').replace(/"/g, '').trim(),
+                        price: (cols[5] || '').replace(/"/g, '').trim(),
+                        image: (cols[6] || '').replace(/"/g, '').trim(),
+                        type: (cols[7] || '').replace(/"/g, '').trim()
                     };
                 }).filter(item => item.name && item.category);
 
                 renderLanding();
-            } catch (e) {
-                console.error(e);
+            } catch (e) { 
+                console.error("Error:", e);
                 document.getElementById('landing-page').innerHTML = `
-                    <p class='text-center col-span-2 py-10 text-red-700 font-bold'>
-                        Unable to load menu.<br><span class='text-xs font-normal text-gray-500'>Please check connection.</span>
-                    </p>`;
+                    <div class="col-span-2 text-center py-10">
+                        <p class='text-sm text-gray-500'>Unable to load menu. Please check the data source.</p>
+                    </div>`;
             }
         }
 
@@ -173,12 +258,12 @@
                             <div class="flex justify-between items-start">
                                 <div class="flex items-start">
                                     <div class="food-label ${labelClass} mt-1"><div></div></div>
-                                    <h4 class="text-lg font-bold text-[#a03025] font-serif leading-tight">${item.name}</h4>
+                                    <h4 class="text-md font-bold text-[#a03025] font-serif leading-tight">${item.name}</h4>
                                 </div>
                                 <span class="font-bold text-gray-800 ml-2">₹${item.price}</span>
                             </div>
-                            ${item.pieces ? `<span class="text-[10px] text-blue-600 font-bold uppercase mt-1 block">${item.pieces} PIECES</span>` : ''}
-                            <p class="text-sm text-gray-600 italic mt-2">${item.desc || ''}</p>
+                            ${item.pieces ? `<span class="text-[9px] text-blue-600 font-bold uppercase mt-1 block">${item.pieces} PIECES</span>` : ''}
+                            <p class="text-xs text-gray-600 italic mt-2">${item.desc}</p>
                         </div>
                     </div>
                 `;
