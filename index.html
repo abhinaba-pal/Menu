@@ -10,17 +10,18 @@
         :root { --parchment: #fdfaf0; --terracotta: #a03025; --gold-accent: #c5a060; --teal-dark: #004b49; --veg-green: #2e7d32; --nonveg-red: #c62828; }
         body { background-color: var(--parchment); font-family: 'Inter', sans-serif; color: #2c2c2c; background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png'); border-left: 8px solid var(--terracotta); border-right: 8px solid var(--terracotta); min-height: 100vh; }
         .hero-banner { padding: 40px 20px; text-align: center; }
-        .main-logo { width: 100px; height: 100px; background: white; border-radius: 50%; border: 2px solid var(--gold-accent); margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .main-logo { width: 100px; height: 100px; background: white; border-radius: 50%; border: 2px solid var(--gold-accent); margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; }
         .restaurant-name { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--terracotta); line-height: 1; }
         .restaurant-tagline { font-family: 'Playfair Display', serif; font-style: italic; color: var(--teal-dark); letter-spacing: 1px; font-size: 0.75rem; text-transform: uppercase; margin-top: 10px; }
         .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px; }
-        .home-card { background: white; border: 1px solid rgba(197, 160, 96, 0.3); padding: 20px 10px; text-align: center; cursor: pointer; box-shadow: 4px 4px 0px var(--gold-accent); }
+        .home-card { background: white; border: 1px solid rgba(197, 160, 96, 0.3); padding: 20px 10px; text-align: center; cursor: pointer; box-shadow: 4px 4px 0px var(--gold-accent); transition: transform 0.1s; }
+        .home-card:active { transform: scale(0.98); }
         .home-card-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.85rem; color: var(--teal-dark); }
         #sticky-header { position: sticky; top: 0; z-index: 100; background: var(--parchment); border-bottom: 2px solid var(--gold-accent); padding: 10px; }
         #sub-nav-bar { display: flex; overflow-x: auto; gap: 10px; padding: 5px 0; scrollbar-width: none; }
         .sub-nav-item { padding: 6px 12px; background: white; border: 1px solid var(--gold-accent); border-radius: 20px; font-size: 0.7rem; font-weight: 700; white-space: nowrap; }
         .sub-nav-item.active { background: var(--terracotta); color: white; border-color: var(--terracotta); }
-        .food-label { width: 14px; height: 14px; border: 1px solid; display: inline-flex; align-items: center; justify-content: center; margin-right: 8px; flex-shrink: 0; }
+        .food-label { width: 14px; height: 14px; border: 1px solid; display: inline-flex; align-items: center; justify-content: center; margin-right: 8px; flex-shrink: 0; background: white; }
         .food-label div { width: 6px; height: 6px; border-radius: 50%; }
         .label-veg { border-color: var(--veg-green); } .label-veg div { background: var(--veg-green); }
         .label-nonveg { border-color: var(--nonveg-red); } .label-nonveg div { background: var(--nonveg-red); }
@@ -31,35 +32,49 @@
 
     <div id="landing-page">
         <header class="hero-banner">
-            <div class="main-logo"><img src="https://via.placeholder.com/100" alt="Logo"></div>
+            <div class="main-logo"><img src="https://via.placeholder.com/100" alt="Adda Logo"></div>
             <h1 class="restaurant-name">Adda</h1>
             <p class="restaurant-tagline">Colonial Flavours & Fine Dining</p>
         </header>
         <div id="categories-container" class="menu-grid">
-            <p class="col-span-2 text-center py-10 opacity-50">Preparing the menu...</p>
+            <p class="col-span-2 text-center py-10 opacity-50 animate-pulse">Fetching the latest menu...</p>
         </div>
     </div>
 
     <div id="category-page" class="hidden">
         <div id="sticky-header">
-            <button onclick="showHome()" class="text-[10px] font-bold text-white bg-[#004b49] px-3 py-1 rounded-full uppercase mb-2">← Back</button>
+            <button onclick="showHome()" class="text-[10px] font-bold text-white bg-[#004b49] px-3 py-1 rounded-full uppercase mb-2">← Back to Menu</button>
             <div id="sub-nav-bar"></div>
         </div>
         <div id="items-container" class="p-4 space-y-4"></div>
     </div>
 
     <script>
-        // Using a CORS Proxy to bypass Zoho's security block
-        const RAW_URL = 'https://sheet.zohopublic.in/sheet/published/shhin301ba89480b14ac0ad8136475ac17a77?download=csv&sheetname=Sheet1';
-        const PROXY_URL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(RAW_URL);
+        const SHEET_CSV_URL = 'https://sheet.zohopublic.in/sheet/published/shhin301ba89480b14ac0ad8136475ac17a77?download=csv&sheetname=Sheet1';
+        
+        // Fast Proxy Switcher
+        const PROXY_URL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(SHEET_CSV_URL);
         
         let menuData = [];
         let groupedData = {};
 
         async function init() {
+            // 1. Try to load from Cache first for instant speed
+            const cachedData = sessionStorage.getItem('adda_menu_cache');
+            if (cachedData) {
+                menuData = JSON.parse(cachedData);
+                renderHome();
+                return;
+            }
+
             try {
-                const response = await fetch(PROXY_URL);
-                if (!response.ok) throw new Error('Fetch failed');
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
+                const response = await fetch(PROXY_URL, { signal: controller.signal });
+                clearTimeout(timeoutId);
+
+                if (!response.ok) throw new Error('Network response was not ok');
                 const text = await response.text();
                 
                 const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
@@ -70,14 +85,23 @@
                         sub: (c[1]||"").replace(/"/g,'').trim(),
                         name: (c[2]||"").replace(/"/g,'').trim(),
                         desc: (c[3]||"").replace(/"/g,'').trim(),
+                        pieces: (c[4]||"").replace(/"/g,'').trim(),
                         price: (c[5]||"").replace(/"/g,'').trim(),
                         type: (c[7]||"").replace(/"/g,'').trim()
                     };
                 }).filter(i => i.name && i.cat);
 
+                // 2. Save to Cache for next time
+                sessionStorage.setItem('adda_menu_cache', JSON.stringify(menuData));
                 renderHome();
+
             } catch (err) {
-                document.getElementById('categories-container').innerHTML = `<p class="col-span-2 text-center text-red-600 font-bold py-10">Error loading data.<br><span class="text-xs font-normal">Try refreshing the page.</span></p>`;
+                console.error("Fetch error:", err);
+                document.getElementById('categories-container').innerHTML = `
+                    <div class="col-span-2 text-center py-10">
+                        <p class="text-red-600 font-bold">Slow Connection Detected</p>
+                        <button onclick="location.reload()" class="mt-4 bg-terracotta text-white px-6 py-2 rounded-lg text-sm font-bold">Try Again</button>
+                    </div>`;
             }
         }
 
@@ -114,15 +138,16 @@
             document.querySelectorAll('.sub-nav-item').forEach(el => el.classList.toggle('active', el.innerText === subName));
             const items = groupedData[subName];
             document.getElementById('items-container').innerHTML = items.map(i => `
-                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                     <div class="flex justify-between items-start">
                         <div class="flex items-start">
                             <div class="food-label ${i.type.toLowerCase().includes('non') ? 'label-nonveg' : 'label-veg'} mt-1"><div></div></div>
-                            <h4 class="font-bold text-sm text-[#a03025] font-serif">${i.name}</h4>
+                            <h4 class="font-bold text-[15px] text-[#a03025] font-serif leading-tight">${i.name}</h4>
                         </div>
-                        <span class="font-bold text-sm">₹${i.price}</span>
+                        <span class="font-bold text-sm ml-2">₹${i.price}</span>
                     </div>
-                    <p class="text-[11px] text-gray-500 italic mt-1">${i.desc}</p>
+                    ${i.pieces ? `<p class="text-[9px] text-blue-600 font-bold mt-1 uppercase">${i.pieces} PIECES</p>` : ''}
+                    <p class="text-[12px] text-gray-500 italic mt-2 leading-relaxed">${i.desc}</p>
                 </div>
             `).join('');
             window.scrollTo(0,0);
